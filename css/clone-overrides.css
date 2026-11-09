@@ -1,0 +1,94 @@
+/* Clone-only overrides: Swiper layout + hero ray fallback + reveal helpers */
+
+.hero-rays-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 50% at 78% 12%, rgba(255, 200, 220, 0.35), transparent 70%),
+    radial-gradient(28% 40% at 88% 8%, rgba(255, 143, 200, 0.25), transparent 70%);
+  pointer-events: none;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Swiper plan cards: desktop keeps the 3-col grid look */
+@media (width > 760px) {
+  [data-plan-cards].swiper {
+    overflow: visible;
+  }
+  [data-plan-cards] .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    transform: none !important;
+  }
+  [data-plan-cards] .swiper-slide {
+    width: auto !important;
+    margin: 0 !important;
+  }
+}
+
+@media (width <= 760px) {
+  [data-plan-cards].swiper {
+    margin-inline: calc(var(--gutter, 16px) * -1);
+    padding: 0 var(--gutter, 16px) 4px;
+    overflow: hidden;
+  }
+  [data-plan-cards] .swiper-slide {
+    height: auto;
+  }
+}
+
+/* Buy-bar Swiper: one slide at a time, dots stay beside the track */
+.buy-bar__slider.swiper {
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
+.buy-bar__slider .swiper-wrapper {
+  display: flex;
+}
+.buy-bar__slider .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.buy-bar__dots {
+  position: relative;
+  z-index: 2;
+}
+
+.buy-bar__slider {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.buy-bar__swiper.swiper {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.buy-bar__swiper .swiper-wrapper {
+  display: flex;
+}
+.buy-bar__swiper .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
